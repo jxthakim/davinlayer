@@ -1,19 +1,31 @@
+'use client'
 import Link from 'next/link'
 import { Button } from '@/components/ui/button'
+import {useSession, signOut} from "next-auth/react";
 
 export default function Home() {
+  const { data: session } = useSession()
+
   return (
     <main className="min-h-screen bg-gradient-to-br from-primary/10 via-background to-secondary/10">
       <nav className="border-b border-border/40 backdrop-blur-sm sticky top-0 z-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex justify-between items-center">
           <div className="text-2xl font-bold text-primary">HKM App</div>
           <div className="space-x-4">
-            <Link href="/auth/signin">
-              <Button variant="outline">Sign In</Button>
-            </Link>
-            <Link href="/auth/signup">
-              <Button>Sign Up</Button>
-            </Link>
+            {session ? (
+  <Button variant="outline" onClick={() => signOut()}>
+    Sign Out
+  </Button>
+) : (
+  <>
+    <Link href="/auth/signin">
+      <Button variant="outline">Sign In</Button>
+    </Link>
+    <Link href="/auth/signup">
+      <Button>Sign Up</Button>
+    </Link>
+  </>
+)}
           </div>
         </div>
       </nav>
