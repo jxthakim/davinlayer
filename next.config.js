@@ -10,7 +10,7 @@ const nextConfig = {
   },
   headers: async () => [
     {
-      source: '/:path*',
+      source: '/(.*)',
       headers: [
         {
           key: 'X-Content-Type-Options',
